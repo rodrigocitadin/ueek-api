@@ -9,6 +9,8 @@ class User extends Model
 {
     use HasFactory;
 
+    protected $table = 'user';
+
     public function numbers()
     {
         return $this->belongsToMany(
@@ -24,5 +26,11 @@ class User extends Model
         return $this->hasOne(Address::class);
     }
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'email',
+        'cpf',
+        'phone',
+        'address_id'
+    ];
 }

@@ -18,23 +18,12 @@ class UserController extends Controller
             'address' => 'required',
         ]);
 
-
-
         $addr = Address::create($request->address);
 
-        // $address = Address::create([
+        $request['address_id'] = $addr['id'];
 
-        // ]);
+        $user = User::create($request->all());
 
-        // $user = User::create([
-        //     'name' => $content->name,
-        //     'email' => $content->email,
-        //     'cpf' => $content->cpf,
-        //     'phone' => $content->phone,
-        //     'address' => $address->id,
-        //     'name' => $content->name,
-        // ]);
-
-        return response()->json($addr);
+        return response()->json($user);
     }
 }

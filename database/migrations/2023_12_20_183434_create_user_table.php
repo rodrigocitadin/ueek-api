@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('cpf')->unique();
             $table->string('phone');
-            $table->foreignId('address_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('address_id')->constrained(table: 'address')->cascadeOnDelete();
             $table->timestamps();
         });
     }
