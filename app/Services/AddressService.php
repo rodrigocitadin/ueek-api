@@ -8,10 +8,12 @@ class AddressService
 {
     public static function getAll()
     {
-        return Address::all();
+        $addresses = Address::all();
+
+        return $addresses;
     }
 
-    public static function getById(int $id)
+    public static function getById($id)
     {
         $address = Address::find((int)$id);
 

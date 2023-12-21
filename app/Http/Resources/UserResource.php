@@ -18,6 +18,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'cpf' => $this->cpf,
             'email' => $this->email,
             'phone' => $this->phone,
             'address' => new AddressResource(AddressService::getById($this->address_id))
