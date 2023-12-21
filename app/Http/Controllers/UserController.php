@@ -2,28 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\Address;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    function create(Request $request)
+    public function index()
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'cpf' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-        ]);
+        $users = UserService::getAllUsers();
 
-        $addr = Address::create($request->address);
-
-        $request['address_id'] = $addr['id'];
-
-        $user = User::create($request->all());
-
-        return response()->json($user);
+        return UserResource::collection($users);
     }
+
+    // function create(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required',
+    //         'email' => 'required',
+    //         'cpf' => 'required',
+    //         'phone' => 'required',
+    //         'address' => 'required',
+    //     ]);
+
+    //     $addr = Address::create($request->address);
+
+    //     $request['address_id'] = $addr['id'];
+
+    //     $user = User::create($request->all());
+
+    //     return response()->json($user);
+    // }
 }

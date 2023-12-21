@@ -15,4 +15,4 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::post('/user', [UserController::class, 'create']);
+Route::resource('user', UserController::class);
