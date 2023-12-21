@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('amount');
             $table->boolean('is_paid');
+            $table->json('selected_numbers');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('numbers_id')->constrained();
             $table->timestamps();
