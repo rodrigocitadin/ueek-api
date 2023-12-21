@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('transaction', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount');
             $table->boolean('is_paid');
-            $table->foreignId('users_numbers')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('numbers_id')->constrained();
             $table->timestamps();
         });
     }

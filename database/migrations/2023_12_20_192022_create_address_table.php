@@ -19,10 +19,7 @@ return new class extends Migration
             $table->string('district');
             $table->string('number');
             $table->string('state');
-
-            $table->foreignId('user_id')
-                ->constrained();
-
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

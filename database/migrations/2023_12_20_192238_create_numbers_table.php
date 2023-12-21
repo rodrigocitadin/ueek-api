@@ -16,7 +16,6 @@ return new class extends Migration
             $table->json('available');
             $table->json('taken');
             $table->decimal('price');
-
             $table->timestamps();
         });
     }
