@@ -13,4 +13,6 @@ class Numbers extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    protected $fillable = [];
 }

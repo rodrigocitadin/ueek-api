@@ -23,4 +23,6 @@ class User extends Model
     {
         return $this->hasOne(Address::class);
     }
+
+    protected $fillable = [];
 }
