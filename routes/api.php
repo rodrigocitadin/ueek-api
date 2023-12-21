@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +15,4 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::post('/user', [UsersController::class, 'create']);
+Route::post('/user', [UserController::class, 'create']);

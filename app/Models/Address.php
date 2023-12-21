@@ -14,5 +14,12 @@ class Address extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected $fillable = [];
+    protected $fillable = [
+        'cep',
+        'city',
+        'street',
+        'district',
+        'number',
+        'state'
+    ];
 }
