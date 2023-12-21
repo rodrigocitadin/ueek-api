@@ -17,4 +17,11 @@ class AddressService
 
         return $address;
     }
+
+    public static function create($data)
+    {
+        $address = Address::create($data);
+
+        return $address;
+    }
 }
