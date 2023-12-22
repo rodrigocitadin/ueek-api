@@ -14,5 +14,15 @@ class Numbers extends Model
         return $this->belongsToMany(User::class);
     }
 
-    protected $fillable = [];
+    protected $fillable = [
+        'available',
+        'taken',
+        'price'
+    ];
+
+    protected $casts = [
+        'available' => 'array',
+        'taken' => 'array',
+        'price' => 'decimal:<8,2>'
+    ];
 }
