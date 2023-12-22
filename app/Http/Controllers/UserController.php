@@ -6,7 +6,6 @@ use App\Http\Resources\UserResource;
 use App\Services\AddressService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class UserController extends Controller
 {
@@ -27,16 +26,13 @@ class UserController extends Controller
             'address' => 'required',
         ]);
 
-        $userAlreadyExists = UserService::getByCpf($request->cpf) ?? null;
-        $userAlreadyExists = UserService::getByEmail($request->email) ?? $userAlreadyExists;
+        $data = $request->all();
 
-        if ($userAlreadyExists) return response()->json(['error' => 'Email or cpf already exists.'], 400);
+        $address = AddressService::create($data['address']);
 
-        $address = AddressService::create($request->address);
+        $data['address_id'] = $address['id'];
 
-        $request['address_id'] = $address['id'];
-
-        $user = UserService::create($request->all());
+        $user = UserService::create($data);
 
         return new UserResource($user);
     }
