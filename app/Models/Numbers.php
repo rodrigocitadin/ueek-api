@@ -23,6 +23,6 @@ class Numbers extends Model
     protected $casts = [
         'available' => 'array',
         'taken' => 'array',
-        'price' => 'decimal:<8,2>'
+        'price' => 'float'
     ];
 }

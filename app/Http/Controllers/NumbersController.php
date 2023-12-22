@@ -2,28 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\NumbersResource;
+use App\Services\NumbersService;
 use Illuminate\Http\Request;
-use Nette\NotImplementedException;
 
 class NumbersController extends Controller
 {
     public function index()
     {
-        throw new NotImplementedException();
+        $numbers = NumbersService::getAll();
+
+        return NumbersResource::collection($numbers);
     }
 
     public function show(string $id)
     {
-        throw new NotImplementedException();
+        $numbers = NumbersService::getById($id);
+
+        return new NumbersResource($numbers);
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        throw new NotImplementedException();
+        $request->validate([
+            'available' => 'required',
+            'taken' => 'required',
+            'price' => 'required|decimal:1,2'
+        ]);
+
+        $numbers = NumbersService::create($request->all());
+
+        return new NumbersResource($numbers);
     }
 
     public function update(Request $request, string $id)
     {
-        throw new NotImplementedException();
+        $numbers = NumbersService::update($request->all(), $id);
+
+        if (!$numbers) return response()->json(['error' => 'bad request'], 400);
+
+        return response()->json(['success' => 'ok'], 200);
     }
 }

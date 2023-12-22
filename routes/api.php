@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\NumbersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -16,3 +16,4 @@ use App\Http\Controllers\UserController;
 */
 
 Route::resource('user', UserController::class);
+Route::resource('numbers', NumbersController::class);
