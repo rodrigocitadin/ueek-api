@@ -16,6 +16,13 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
+    public function show(string $id)
+    {
+        $user = UserService::getById($id);
+
+        return new UserResource($user);
+    }
+
     function store(Request $request)
     {
         $request->validate([

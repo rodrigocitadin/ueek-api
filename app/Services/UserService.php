@@ -13,6 +13,13 @@ class UserService
         return $users;
     }
 
+    public static function getById(string $id)
+    {
+        $user = User::findOrFail($id);
+
+        return $user;
+    }
+
     public static function create($data)
     {
         $user = User::create($data);
