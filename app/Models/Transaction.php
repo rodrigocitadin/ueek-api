@@ -9,5 +9,15 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'amount',
+        'is_paid',
+        'selected_numbers',
+        'user_id',
+        'numbers_id'
+    ];
+
+    protected $casts = [
+        'selected_numbers' => 'array'
+    ];
 }
