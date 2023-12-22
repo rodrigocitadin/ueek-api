@@ -17,6 +17,7 @@ class NumbersResource extends JsonResource
         return [
             'id' => $this->id,
             'available' => $this->available,
+            'taken' => $this->taken,
             'price' => $this->price
         ];
     }
