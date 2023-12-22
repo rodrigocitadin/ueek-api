@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('user', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('cpf')->unique();
+            $table->string('email');
+            $table->string('cpf');
             $table->string('phone');
             $table->foreignId('address_id')->constrained(table: 'address')->cascadeOnDelete();
             $table->timestamps();
