@@ -22,19 +22,6 @@ class NumbersController extends Controller
         return new NumbersResource($numbers);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'available' => 'required',
-            'taken' => 'required',
-            'price' => 'required|decimal:1,2'
-        ]);
-
-        $numbers = NumbersService::create($request->all());
-
-        return new NumbersResource($numbers);
-    }
-
     public function update(Request $request, string $id)
     {
         $numbers = NumbersService::update($request->all(), $id);
