@@ -42,12 +42,21 @@ class TransactionService
             );
 
             if ($notAvailable) throw new BadRequestException;
+        } else {
+            throw new BadRequestException;
         }
 
         $data['is_paid'] = true;
         $data['amount'] = (float) ($numbers['price'] * count($data['selected_numbers']));
 
         $transaction = Transaction::create($data);
+
+        $numbersToUpdate = [
+            'taken' => array_merge($numbers['taken'], $transaction['selected_numbers']),
+            'available' => array_diff($numbers['available'], $transaction['selected_numbers'])
+        ];
+
+        NumbersService::update($numbersToUpdate, $numbers['id']);
 
         return $transaction;
     }
