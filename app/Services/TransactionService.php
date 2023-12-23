@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Transaction;
+use Ramsey\Uuid\Type\Decimal;
 
 class TransactionService
 {
@@ -38,6 +39,9 @@ class TransactionService
 
             if ($isNumbersNotAvailable) return response()->json(['error' => 'bad request'], 400);
         }
+
+        $data['is_paid'] = true;
+        $data['amount'] = (float) ($numbers['price'] * count($data['selected_numbers']));
 
         $transaction = Transaction::create($data);
 
