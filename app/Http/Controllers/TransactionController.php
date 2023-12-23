@@ -30,7 +30,12 @@ class TransactionController extends Controller
             'numbers_id' => 'required',
         ]);
 
-        $transaction = TransactionService::create($request->all());
+        try {
+            $transaction = TransactionService::create($request->all());
+        } catch (\Throwable) {
+            echo 'sexo';
+            return response()->json(['error' => 'unavailable numbers'], 400);
+        }
 
         return new TransactionResource($transaction);
     }

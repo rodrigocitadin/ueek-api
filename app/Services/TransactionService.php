@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Models\Transaction;
-use Ramsey\Uuid\Type\Decimal;
+use Error;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class TransactionService
 {
@@ -35,9 +36,12 @@ class TransactionService
         $numbers = NumbersService::getById($data['numbers_id']);
 
         if ($user && $numbers) {
-            $isNumbersNotAvailable = in_array($numbers->taken, $data['selected_numbers']);
+            $notAvailable = TransactionService::verifyNumbersDisponibility(
+                $numbers['taken'],
+                $data['selected_numbers']
+            );
 
-            if ($isNumbersNotAvailable) return response()->json(['error' => 'bad request'], 400);
+            if ($notAvailable) throw new BadRequestException;
         }
 
         $data['is_paid'] = true;
@@ -46,5 +50,12 @@ class TransactionService
         $transaction = Transaction::create($data);
 
         return $transaction;
+    }
+
+    private static function verifyNumbersDisponibility($numbers, $selected_numbers)
+    {
+        foreach ($selected_numbers as $num) {
+            if (in_array($num, $numbers)) return true;
+        }
     }
 }
