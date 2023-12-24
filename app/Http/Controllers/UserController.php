@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -22,17 +22,11 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    function store(Request $request)
+    function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'cpf' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-        ]);
+        $data = $request->validated();
 
-        $user = UserService::create($request->all());
+        $user = UserService::create($data);
 
         return new UserResource($user);
     }
