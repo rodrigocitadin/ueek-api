@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\NumbersController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -17,5 +18,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::resource('user', UserController::class);
+Route::resource('address', AddressController::class);
 Route::resource('numbers', NumbersController::class);
 Route::resource('transaction', TransactionController::class);
