@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Resources\TransactionResource;
 use App\Services\TransactionService;
-use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
@@ -22,19 +22,17 @@ class TransactionController extends Controller
         return new TransactionResource($transaction);
     }
 
-    public function store(Request $request)
+    public function store(StoreTransactionRequest $request)
     {
-        $request->validate([
-            'selected_numbers' => 'required',
-            'user_id' => 'required',
-            'numbers_id' => 'required',
-        ]);
+        $data = $request->validated();
 
-        try {
-            $transaction = TransactionService::create($request->all());
-        } catch (\Throwable) {
-            echo 'sexo';
-            return response()->json(['error' => 'unavailable numbers'], 400);
+        $transaction = TransactionService::create($data);
+
+        if (array_key_exists('message', $transaction)) {
+            return response()->json(
+                $transaction,
+                422
+            );
         }
 
         return new TransactionResource($transaction);

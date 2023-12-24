@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Transaction;
-use Error;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class TransactionService
 {
@@ -35,16 +33,16 @@ class TransactionService
         $user = UserService::getById($data['user_id']);
         $numbers = NumbersService::getById($data['numbers_id']);
 
-        if ($user && $numbers) {
-            $notAvailable = TransactionService::verifyNumbersDisponibility(
-                $numbers['taken'],
-                $data['selected_numbers']
-            );
+        if (!$user) return ['message' => 'user not found'];
 
-            if ($notAvailable) throw new BadRequestException;
-        } else {
-            throw new BadRequestException;
-        }
+        if (!$numbers) return ['message' => 'numbers not found'];
+
+        $notAvailable = TransactionService::verifyNumbersDisponibility(
+            $numbers['taken'],
+            $data['selected_numbers']
+        );
+
+        if ($notAvailable) return ['message' => 'unavailable numbers'];
 
         $data['is_paid'] = true;
         $data['amount'] = (float) ($numbers['price'] * count($data['selected_numbers']));
